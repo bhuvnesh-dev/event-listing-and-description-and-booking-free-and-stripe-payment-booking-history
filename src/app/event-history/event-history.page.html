@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div (click)="goBack()" style="padding: 10px">
+      <img src="../../assets/icon/back-button.svg" />
+    </div>
+    <ion-title class="titleHeader">Event History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content>
+      </ion-refresher-content></ion-refresher>
+  <div class="container">
+      <div class="card" *ngFor="let item of history" (click)="gotoDetails(item)">
+          <div class="cardheader">
+              <p class="timeText">{{item.event_time}}</p>
+              <p class="dateText">{{item.event_date | date :'fullDate'}}</p>
+          </div>
+          <div class="divider"></div>
+          <div>
+              <P class="cardTitle">{{item.event_title}}</P>
+              <p class="cardDescription" [innerHTML]="setItem(item.event_description)"></p>
+          </div>
+          <div class="divider"></div>
+          <div class="cardFooter">
+              <P class="priceText">${{item.amount}}</P>
+              <P class="ticketText">Tickets {{item.ticket_num}} ({{item.event_meal}})</P>
+          </div>
+      </div>
+  </div>
+
+</ion-content>

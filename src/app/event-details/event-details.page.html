@@ -1,0 +1,182 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div (click)="goBack()" style="padding: 10px">
+      <img src="../../assets/icon/back-button.svg" />
+      <ion-title class="titleHeader">Events Details</ion-title>
+    </div>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-label class="amount">${{data.event_amount}}.00</ion-label>
+    <img src="https://pollcity.projectsofar.info/storage/candidate-events/{{data.event_image}}" class="image" />
+    <div style="display: flex; justify-content: space-between; align-items: center;margin-top: 10px;">
+      <ion-label class="title">{{data.event_title}}</ion-label>
+    </div>
+    <div class="blue-box">
+      <div class="row1">
+        <ion-label class="label">Location</ion-label>
+        <ion-label class="value">{{data.event_location}}</ion-label>
+      </div>
+      <div class="row2">
+        <ion-label class="label">Date</ion-label>
+        <ion-label class="value">{{data.event_date}}</ion-label>
+      </div>
+      <div class="row1" *ngIf="data.event_reception_time">
+        <ion-label class="label">Reception Time</ion-label>
+        <ion-label class="value">{{data.event_reception_time}}</ion-label>
+      </div>
+      <div class="row2" *ngIf="data.event_reception_time">
+        <ion-label class="label">Dinner Time</ion-label>
+        <ion-label class="value">{{data.event_dinner_time}}</ion-label>
+      </div>
+    </div>
+
+    <div class="list-items">
+      <div class="value" [innerHTML]="setHtml(data.event_description)"></div>
+    </div>
+  </div>
+  <ion-modal showBackdrop="true" class="payment-modal" [isOpen]="paymentModal">
+    <ng-template>
+      <ion-content delegate-handle="mainScroll">
+        <div class="header">
+          <ion-label class="title">Make Payment</ion-label>
+          <ion-buttons slot="end" (click)="closeModal()">
+            <ion-icon name="close" class="close-button" />
+          </ion-buttons>
+        </div>
+        <form scrollY="true" [formGroup]="eventPaymentForm" style="padding-bottom: 100px;" (submit)="submitDonation()">
+          <ion-list>
+            <div class="details">
+              <ion-label class="labels">Card Holder Name</ion-label>
+              <ion-input class="input-fields" placeholder="Card Holder Name" type="" formControlName="name"
+                inputmode="text"></ion-input>
+              <ion-label class="labels">Email</ion-label>
+              <ion-input class="input-fields" placeholder="Email Address" type="" formControlName="email"
+                inputmode="text"></ion-input>
+              <ion-label class="labels">Card Number</ion-label>
+              <ion-input class="input-fields" placeholder="Card Number" maxlength="16" minlength="14" type=""
+                formControlName="number" inputmode="tel" minlength="14" maxlength="16"></ion-input>
+              <div class="small-fields">
+                <div>
+                  <ion-label class="labels">Card Expiry</ion-label>
+                  <ion-input class="inputs" placeholder="Card Expiry" [label]="" type="month"
+                    formControlName="card_expiry"></ion-input>
+                </div>
+                <div style="width: 20px;"></div>
+                <div>
+                  <ion-label class="labels">CVC</ion-label>
+                  <ion-input class="inputs" placeholder="CVC" maxlength="4" minlength="3" type="number"
+                    inputmode="numeric" formControlName="cvc" minlength="3" maxlength="4"></ion-input>
+                </div>
+              </div>
+            </div>
+          </ion-list>
+          <div style="height: 200px;"></div>
+          <div class="footer">
+            <div class="payment-details">
+              <ion-label class="amount">{{eventPaymentForm.value.amount}} $</ion-label>
+              <ion-label class="label">Total Amount</ion-label>
+            </div>
+            <ion-buttons *ngIf="eventPaymentForm.valid" (click)="submitDonation()" class="submit-donation"
+              type="submit">Pay
+            </ion-buttons>
+            <ion-buttons *ngIf="!eventPaymentForm.valid" class="disabled-button" type="submit">Pay
+            </ion-buttons>
+          </div>
+        </form>
+      </ion-content>
+      <div *ngIf="spinner" class="spinner">
+        <ion-spinner name="lines-sharp"></ion-spinner>
+      </div>
+    </ng-template>
+  </ion-modal>
+  <ion-modal showBackdrop="true" class="item-card" [backdropDismiss]="false" [breakpoints]="[1]" [isOpen]="selectItems">
+    <ng-template>
+
+      <ion-content style="--background: #f7f7f7;">
+        <div class="header">
+          <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between;">
+            <div></div>
+            <img src="../../assets/icon/logo-white.svg" height="68px" style="display: flex;" />
+            <ion-buttons (click)="closeCheckout()"><ion-icon name="close"></ion-icon></ion-buttons>
+          </div>
+          <div style="height: 20px;"></div>
+          <ion-label class="sub-title">Please choose meal for {{quantity}} Members.</ion-label>
+        </div>
+        <div class="content">
+          <ion-label class="sub-title">Select total {{quantity}} meals</ion-label>
+          <ion-list class="items" *ngIf="meals.length>0">
+            <div *ngFor="let item of meals; let index= index;">
+
+              <div class="index">
+                <ion-label *ngIf="item.meal !==null">
+                  {{item.meal}}
+                </ion-label>
+                <div class="quantity">
+                  <ion-buttons (click)="decreaseQuantity(index)"><ion-icon
+                      name="remove-outline"></ion-icon></ion-buttons>
+                  <ion-label style="margin-right: 10px;margin-left: 10px;">{{item.quantity}}</ion-label>
+                  <ion-buttons (click)="increaseQuantity(index)"><ion-icon name="add" /></ion-buttons>
+                </div>
+              </div>
+              <div *ngIf="index< meals.length-1"
+                style="height: 1px; background-color: var(--divider2);margin-top: 5px; margin-bottom: 5px; width: 100%;">
+              </div>
+            </div>
+          </ion-list>
+          <div class="items">
+            <div class="index">
+              <ion-label>
+                Total Members:
+              </ion-label>
+              <div class="total-amount">
+                <ion-label style="margin-right: 10px;margin-left: 10px;">{{quantity}}</ion-label>
+              </div>
+            </div>
+            <div
+              style="height: 1px; background-color: var(--divider2);margin-top: 5px; margin-bottom: 5px; width: 100%;">
+            </div>
+            <div class="index">
+              <ion-label>
+                Total Payable Amount: ({{quantity}} x {{data.event_amount}})
+              </ion-label>
+              <div class="total-amount">
+                <ion-label style="margin-right: 10px;margin-left: 10px;">{{quantity*data.event_amount}}$</ion-label>
+              </div>
+            </div>
+
+          </div>
+          <div class="footer">
+            <ion-buttons *ngIf="meals.length >0 && totalQuantity !== quantity" class="submit-button-disabled"
+              (click)="closeCheckout()">Close</ion-buttons>
+            <ion-buttons *ngIf="meals.length>0 ? totalQuantity === quantity:true" class="submit-button"
+              (click)="checkout()">Checkout</ion-buttons>
+          </div>
+          <ion-toast mode="ios" [duration]="3000" [isOpen]="toastIsOpen" [message]="message"
+            [color]="color"></ion-toast>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  
+</ion-content>
+
+<div class="event-detail-footer">
+  <div style="display: flex; align-items: center; flex-direction: column; justify-content: center;">
+    <div class="label">
+      <ion-label style="font-size: 16px; font-family: DmSans-Medium; color: var(--auth-button);">Select
+        Tickets</ion-label>
+    </div>
+    <div class="quantity" style="margin-top: 2px;">
+      <ion-buttons (click)="handleTicket('sub')"><ion-icon name="remove-outline"></ion-icon></ion-buttons>
+      <ion-label style="margin-right: 10px;margin-left: 10px;">{{quantity}}</ion-label>
+      <ion-buttons (click)="handleTicket('add')"><ion-icon name="add" /></ion-buttons>
+    </div>
+  </div>
+  <div>
+    <ion-buttons class="submit-button" (click)="selectMeals()">Pay now</ion-buttons>
+  </div>
+</div>

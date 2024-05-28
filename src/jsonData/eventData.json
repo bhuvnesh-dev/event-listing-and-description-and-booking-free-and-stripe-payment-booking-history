@@ -1,0 +1,30 @@
+{
+    "success": true,
+    "data": {
+    "status": "200",
+    "candidate_event": [
+    {
+    "id": 4,
+    "user_id": 100,
+    "event_title": "Debate",
+    "event_amount": "1",
+    "event_date": "2023-05-27",
+    "event_location": "50 Winterton Drive, Etobicoke, ON, Canada",
+    "event_reception_time": "18:30",
+    "event_dinner_time": "21:30",
+    "event_meal": "Null",
+    "event_image": "1685543375.36-369391_debate-tournament-debate-team.png",
+    "type": "event",
+    "event_description": "<p>A Discussion With Toronto&rsquo;s Candidates For Mayor &nbsp;will be held on Thursday Jun 8 at Martingrove Collegiate (Eglinton &amp; Martingrove Road)</p>\r\n\r\n<p>Come out and watch the debate!&nbsp;&nbsp;</p>",
+    "status": 1,
+    "position": null,
+    "created_at": "2023-05-23T04:00:00.000000Z",
+    "updated_at": "2023-05-31T04:00:00.000000Z",
+    "title": "Debate",
+    "description": "<p>A Discussion With Toronto&rsquo;s Candidates For Mayor &nbsp;will be held on Thursday Jun 8 at Martingrove Collegiate (Eglinton &amp; Martingrove Road)</p>\r\n\r\n<p>Come out and watch the debate!&nbsp;&nbsp;</p>",
+    "image": "1685543375.36-369391_debate-tournament-debate-team.png"
+    }
+    ]
+    },
+    "message": "Data get successfully."
+    }

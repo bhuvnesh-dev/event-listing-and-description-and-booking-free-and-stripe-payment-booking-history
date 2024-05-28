@@ -1,0 +1,81 @@
+ion-content{
+    --background: #F1FAFE;
+    .container {
+      flex-direction: column;
+      padding: 16px;
+      padding-bottom: 100px;
+      .card{
+        margin-top: 20px !important;
+        margin: auto;
+        border-radius: 10px;
+        padding: 0px 10px;
+        background-color: #fff;
+        .cardheader{
+          display: flex;
+          justify-content: space-between;
+    
+          .timeText{
+            font-size: var(--font-2);
+            color: #2196F3;
+            font-family: DmSans-Regular;
+          }
+          .dateText{
+            font-size: var(--font-2);
+            color: #A6A6A6;
+            font-family: DmSans-Regular;
+          }
+        }
+        .divider {
+          height: 1px;
+          display: flex;
+          background-color: #EFEFEF;
+          // margin-top: 20px;
+        }
+        .cardTitle{
+          font-size: var(--font-4);
+          font-family: DmSans-Medium;
+          line-height: 20px;
+          color: #000000;
+        }
+        .cardDescription{
+          font-size: var(--font-2);
+          font-family: DmSans-Regular;
+          line-height: 22px;
+          color: #444444;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3; // number of lines to show /
+                  line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+        .cardFooter{
+          display: flex;
+          justify-content: space-between;
+          .priceText{
+            font-size: var(--font-2);
+            color: #2196F3;
+            line-height: 24px;
+            font-family: DmSans-Regular;
+          }
+          .ticketText{
+            font-size: var(--font-2);
+            color: #A6A6A6;
+            line-height: 24px;
+            font-family: DmSans-Regular;
+          }
+        }
+      }
+  }
+  }
+
+  .titleHeader {
+    font-size: var(--font-4);
+    font-family: DmSans-Medium;
+    text-transform: capitalize;
+    color: #2196f3;
+    position: absolute;
+    justify-self: center;
+    text-align: center;
+    font-weight: 500;
+  }

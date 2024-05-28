@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="titleHeader">Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="container">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content></ion-refresher>
+
+  <ion-list *ngIf="showData">
+    <div class="card" *ngFor="let item of events; let i = index">
+      <img class="shareIcon" (click)="shareEvent(item)" src="../../assets/Group 350.svg" />
+      <img (click)="gotoDetail(i)" *ngIf="item.event_image" class="bannerImage"
+        src="https://pollcity.projectsofar.info/storage/candidate-events/{{item.event_image}}">
+      <img *ngIf="!item.event_image" class="bannerImage" src="../../assets/icon/noImage.jpg" height="150px" />
+      <div (click)="gotoDetail(i)">
+        <p class="heading">{{item.title}}</p>
+        <p class="description" [innerHTML]="setItems(item.event_description)"></p>
+        <div class="cardFooter">
+          <p class="dateText">{{item.event_date | date : 'fullDate'}}</p>
+          <p class="priceText">{{item.event_amount}}$</p>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+  <ion-list *ngIf="!showData">
+    <div *ngFor="let item of events" class="card">
+      <ion-skeleton-text [animated]="true" style="height: 150px; width: 100%;"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true"
+        style="height: 30px; width: 80%; border-radius: 15px; margin-left: 15px; margin-top: 20px;"></ion-skeleton-text>
+      <div style=" padding-top: 10px; padding-bottom: 10px !important;">
+        <ion-skeleton-text [animated]="true"
+          style="height: 15px;   width: 100%; border-radius: 10px; margin-top: 10px;"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true"
+          style="height: 15px;   width: 100%; border-radius: 10px; margin-top: 10px;"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true"
+          style="height: 15px;   width: 70%; border-radius: 10px; margin-top: 10px; "></ion-skeleton-text>
+        <div class="cardFooter" >
+          <ion-skeleton-text [animated]="true"
+          style="height: 15px;   width: 20%; border-radius: 10px; margin-top: 20px;"></ion-skeleton-text>
+          <ion-skeleton-text [animated]="true"
+          style="height: 15px;   width: 20%; border-radius: 10px; margin-top: 20px;"></ion-skeleton-text>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>
+<div class="historyButton" (click)="gotoHistory()">
+  <img src="../../assets/Frame.svg" />
+</div>

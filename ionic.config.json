@@ -1,0 +1,7 @@
+{
+  "name": "event-listing-description-booking-with-history",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

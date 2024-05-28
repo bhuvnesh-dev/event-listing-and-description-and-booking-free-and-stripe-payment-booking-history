@@ -1,0 +1,121 @@
+.container {
+    display: flex;
+    height: 100%;
+    --background: #deefff;
+    ion-list {
+      background-color: #deefff;
+      .inputs {
+        font-family: DmSans-Regular;
+        background-color: #ebf6ff;
+        margin: 15px;
+        border-radius: 5px;
+        color: #2e2e2e;
+        border: 1px solid #aec0ff;
+  
+        .left-icon {
+          margin-right: 16px;
+          color: #2e2e2e;
+        }
+  
+        label {
+          color: var(--ion-color-light-shade);
+        }
+      }
+  
+      .card {
+        margin: 15px;
+        background-color: #fff;
+        border-radius: 15px;
+        position: relative;
+        // padding-bottom: 10px;
+        .shareIcon {
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding-right: 10px;
+          padding-top: 10px;
+        }
+  
+        .bannerImage {
+          border-radius: 15px;
+          max-height: 165px;
+          width: 100%;
+          // max-width: 345px;
+        }
+  
+        div {
+          padding: 15px;
+          padding-bottom: 0px;
+          .heading {
+            font-family: DmSans-medium;
+            font-size: var(--font-5);
+            color: #000;
+            line-height: 30px;
+            margin: 10px 0px;
+            // padding: 0px;
+          }
+  
+          .description {
+            font-size: var(--font-2);
+            line-height: 25px;
+            color: #3e3e3e;
+            overflow: hidden;
+            text-overflow: ellipsis;
+  
+            // margin: 10px 0px 0px -10px;
+          }
+  
+          .cardFooter {
+            display: flex;
+            // margin-top: 10px;
+            justify-content: space-between;
+            padding: 0px;
+  
+            .dateText {
+              font-size: var(--font-2);
+              font-family: DmSans-regular;
+              color: #2196f3;
+            }
+  
+            .priceText {
+              font-size: var(--font-3);
+              font-family: DmSans-medium;
+              color: #2196f3;
+            }
+          }
+        }
+      }
+    }
+  }
+  .historyButton {
+    width: 54px;
+    height: 54px;
+    background-color: #ffc107;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 26px;
+    position: absolute;
+    bottom: 20px;
+    right: 16px;
+  }
+  
+  @media (min-width: 768px) {
+    .bannerImage {
+      border-radius: 15px;
+      max-height: 450px;
+      min-height: 450px;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .titleHeader {
+    font-size: var(--font-4);
+    font-family: DmSans-Medium;
+    text-transform: capitalize;
+    color: #2196f3;
+    position: absolute;
+    justify-self: center;
+    text-align: center;
+    font-weight: 500;
+  }
